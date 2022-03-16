@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.84.1" />
+
+
+<title>R Language Notes - Jinji&#39;s Website</title>
+<meta property="og:title" content="R Language Notes - Jinji&#39;s Website">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/en/about/">About</a></li>
+    
+    <li><a href="/en/">Blog</a></li>
+    
+    <li><a href="/cn/about/">关于</a></li>
+    
+    <li><a href="/cn/">日志</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+
+    <h1 class="article-title">R Language Notes</h1>
+
+    
+
+    <div class="article-content">
+      <h2 id="disclaimer">Disclaimer</h2>
+<blockquote>
+<p>To save my time finding codes(since I can&rsquo;t remember all of them), I made some notes here. These codes were all from online resources and I might have made some adjustments or might not. Copyright belongs to the original author, please inform site owner if any infringement.</p>
+</blockquote>
+<h1 id="c">C</h1>
+<h2 id="color">Color</h2>
+<ul>
+<li>add more colors to a color palette</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(RColorBrewer)
+<span style="color:#75715e"># Define the number of colors you want</span>
+nb.cols <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">13</span>
+mycolors <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">colorRampPalette</span>(<span style="color:#a6e22e">brewer.pal</span>(<span style="color:#ae81ff">12</span>, <span style="color:#e6db74">&#34;Set3&#34;</span>))(nb.cols)
+<span style="color:#75715e"># Set3 has 12 colors</span>
+<span style="color:#75715e"># Create a ggplot with 13 colors </span>
+<span style="color:#75715e"># Use scale_fill_manual</span>
+plot<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ggplot</span>(df, <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x var, y <span style="color:#f92672">=</span> y var, fill <span style="color:#f92672">=</span> some factor)) <span style="color:#f92672">+</span> 
+  <span style="color:#a6e22e">geom_bar</span>(stat <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;identity&#34;</span>)<span style="color:#f92672">+</span><span style="color:#a6e22e">ylab</span>(<span style="color:#e6db74">&#34;YY&#34;</span>)<span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">theme</span>(axis.text.x <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(angle <span style="color:#f92672">=</span> <span style="color:#ae81ff">90</span>))<span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">theme</span>(axis.title.x <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_blank</span>())<span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">scale_fill_manual</span>(values <span style="color:#f92672">=</span>mycolors)
+
+</code></pre></div><h1 id="l">L</h1>
+<h2 id="legend">Legend</h2>
+<ul>
+<li>change legend size</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">ggplot</span>(df, <span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x var, y<span style="color:#f92672">=</span>y var)) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">theme</span>(legend.key.size <span style="color:#f92672">=</span> <span style="color:#a6e22e">unit</span>(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;cm&#39;</span>), <span style="color:#75715e">#change legend key size</span>
+        legend.key.height <span style="color:#f92672">=</span> <span style="color:#a6e22e">unit</span>(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;cm&#39;</span>), <span style="color:#75715e">#change legend key height</span>
+        legend.key.width <span style="color:#f92672">=</span> <span style="color:#a6e22e">unit</span>(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;cm&#39;</span>), <span style="color:#75715e">#change legend key width</span>
+        legend.title <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(size<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>), <span style="color:#75715e">#change legend title font size</span>
+        legend.text <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(size<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)) <span style="color:#75715e">#change legend text font size</span>
+</code></pre></div>
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+
